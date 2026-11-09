@@ -1,6 +1,6 @@
 # Airline Reliability Analytics Pipeline
 
-**Status:** January–February 2025 source months ingested, reconciled, and loaded into a local SQLite database. A portable offline HTML dashboard and an editable Power BI report are available. No public deployment.
+**Status:** January–February 2025 source months ingested, reconciled, and loaded into a local SQLite database. A portable HTML dashboard and an editable Power BI report are published with the [portfolio case study](https://froghausstudios.com/work/airline-reliability-analytics). The analysis is a bounded, static extract; there is no scheduled refresh.
 
 ## Question
 
@@ -47,10 +47,10 @@ Run `python report.py` to regenerate [the bounded results summary](RESULTS.md) f
 
 ### Portfolio dashboard
 
-Run `python build_dashboard.py` to regenerate [the standalone interactive dashboard](Airline_Reliability_Dashboard.html) from the checked combined CSV, then open that HTML file in a browser. It needs no server or external JavaScript library. Its filters recompute the on-time rate from summed arrivals rather than averaging carrier-month percentages. The HTML embeds the 20 aggregate rows, not the raw flight records. The dashboard is descriptive and does not imply causal findings or operational improvements.
+Run `python build_dashboard.py` to regenerate [the standalone interactive dashboard](Airline_Reliability_Dashboard.html) from the checked combined CSV and route table, then open that HTML file in a browser. The [published dashboard](https://froghausstudios.com/downloads/airline-reliability-dashboard.html) needs no external JavaScript library. Its filters recompute the on-time rate from summed arrivals rather than averaging carrier-month percentages. The HTML embeds 20 carrier-month rows and 17,291 directional carrier-route-month rows, not the raw flight records. It includes airline names and a route explorer with city, airport, airline, and month filters. The dashboard is descriptive and does not imply causal findings or operational improvements.
 
 ### Editable Power BI report
 
 `Airline_Reliability_2025.pbix` imports the checked 20-row carrier-month CSV and the 17,291-row directional carrier-route-month CSV. Its rate measures divide summed on-time arrivals by summed measured arrivals, so grouped comparisons are weighted. The first page compares named airlines and displays a monthly trend. The Route Explorer page adds an airline slicer and a sortable table with airline name, directional route, origin and destination cities, flights, and weighted on-time rate. Route rows reconcile to 1,158,590 flights. The report was saved in Power BI Desktop on November 8, 2026. The Power BI source paths point to local CSV files; after extracting the ZIP elsewhere, update the source paths before refreshing. The portable HTML dashboard remains the easiest artifact to inspect without Power BI Desktop.
 
-Run `python build_route_month.py` to regenerate the route table and carrier lookup from the raw BTS archives; it checks every carrier-month count against the existing aggregate. For a handoff, include `Airline_Reliability_2025.pbix`, `Airline_Reliability_Dashboard.html`, `RESULTS.md`, this README, the scripts, `queries.sql`, and the aggregate CSVs. The raw BTS ZIPs are available from the cited official source and are deliberately excluded from the lightweight handoff. No live service, PostgreSQL/dbt pipeline, or public deployment is claimed.
+Run `python build_route_month.py` to regenerate the route table and carrier lookup from the raw BTS archives; it checks every carrier-month count against the existing aggregate. For a handoff, include `Airline_Reliability_2025.pbix`, `Airline_Reliability_Dashboard.html`, `RESULTS.md`, this README, the scripts, `queries.sql`, and the aggregate CSVs. The raw BTS ZIPs are available from the cited official source and are deliberately excluded from the lightweight handoff. The static dashboard and Power BI download are public; no live data service or PostgreSQL/dbt pipeline is claimed.
